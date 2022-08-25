@@ -7,6 +7,7 @@ def tensorboard(port, host_dir="/var/log/tensorboard"):
         port (int): port used by host and container
         host_dir (str): log storage path
     """
+    install.python_packages(["tensorboard"])
     io.mount(src=host_dir, dest="/home/envd/logs")
     runtime.daemon(
         commands=[
