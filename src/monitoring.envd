@@ -1,0 +1,27 @@
+def tensorboard(port, host_dir="/var/log/tensorboard"):
+    """Configure TensorBoard
+
+    Make sure you have permission for `host_dir`
+
+    Args:
+        port (int): port used by host and container
+        host_dir (str): log storage path
+    """
+    install.python_packages(["tensorboard"])
+    io.mount(src=host_dir, dest="/home/envd/logs")
+    runtime.daemon(
+        commands=[
+            [
+                "tensorboard",
+                "--logdir",
+                "/home/envd/logs",
+                "--port",
+                str(port),
+                "--host",
+                "0.0.0.0",
+                ">>tensorboard.log",
+                "2>&1",
+            ],
+        ]
+    )
+    runtime.expose(envd_port=port, host_port=port, service="")
