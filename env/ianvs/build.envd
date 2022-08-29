@@ -1,9 +1,8 @@
 def build():
     base(os="ubuntu20.04", language="python3.6")
     shell("zsh")
-    install.system_packages(name=["git", "libgl1-mesa-glx", "zip"])
+    install.system_packages(name=["git", "libgl1-mesa-glx", "unzip"])
     run(commands=[
-      "apt-get update",
       "cd /home/ && git clone https://github.com/kubeedge/ianvs.git",
       "cd /home/ianvs && pip install -r requirements.txt",
       "cd /home/ianvs && pip install ./examples/resources/third_party/*",
