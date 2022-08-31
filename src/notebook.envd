@@ -1,9 +1,24 @@
-def jupyter_lab(port):
+def jupyter_lab(envd_port=8888, host_port=0, token=''):
     """Configure Jupyter Lab.
 
     Args:
-        port (int): port used by host and container
+        envd_port (Optional[int]): port used by envd container (default=8888)
+        host_port (Optional[int]): port used by host, if not specified or equals to 0,
+            envd will randomly choose a free port
+        token (Optional[str]): access token
     """
     install.python_packages(["jupyterlab"])
-    expose(local_port=port, host_port=port, svc="jupyter")
-    runtime.daemon(commands=["jupyter-lab"])
+    runtime.expose(envd_port=envd_port, host_port=host_port, svc="jupyter-lab")
+    runtime.daemon(commands=[
+        [
+            "jupyter",
+            "lab",
+            "--ip",
+            "0.0.0.0",
+            "--port",
+            str(envd_port),
+            "-y",
+            "--ServerApp.token",
+            token,
+        ]
+    ])
