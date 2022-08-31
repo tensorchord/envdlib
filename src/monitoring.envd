@@ -1,5 +1,5 @@
 def tensorboard(port, host_dir="/var/log/tensorboard"):
-    """Configure TensorBoard
+    """Configure TensorBoard.
 
     Make sure you have permission for `host_dir`
 

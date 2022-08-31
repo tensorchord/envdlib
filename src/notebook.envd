@@ -1,0 +1,9 @@
+def jupyter_lab(port):
+    """Configure Jupyter Lab.
+
+    Args:
+        port (int): port used by host and container
+    """
+    install.python_packages(["jupyterlab"])
+    expose(local_port=port, host_port=port, svc="jupyter")
+    runtime.daemon(commands=["jupyter-lab"])
