@@ -1,0 +1,10 @@
+def open_mmlab(packages):
+    """Install packages from OpenMMLab
+
+    Args:
+        packages (List[str]): package name
+    """
+    install.system_packages(name=["libgl1-mesa-glx"])
+    install.conda_packages(name=["gcc"], channel=["conda-forge"])
+    install.python_packages(name=["torch", "torchvision", "openmim"])
+    run(commands=["mim install mmengine " + " ".join(packages)])
