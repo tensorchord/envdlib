@@ -12,7 +12,7 @@ def tensorboard(envd_port=6006, envd_dir="/home/envd/logs",
         host_dir (Optional[str]): log storage mount path in the host
     """
     install.python_packages(["tensorboard"])
-    io.mount(src=host_dir, dest=envd_dir)
+    io.mount(host_path=host_dir, envd_path=envd_dir)
     runtime.daemon(
         commands=[
             [
