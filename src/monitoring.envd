@@ -1,5 +1,9 @@
-def tensorboard(envd_port=6006, envd_dir="/home/envd/logs",
-        host_port=0, host_dir="/var/log/tensorboard"):
+def tensorboard(
+    envd_port=6006,
+    envd_dir="/home/envd/logs",
+    host_port=0,
+    host_dir="/var/log/tensorboard",
+):
     """Configure TensorBoard.
 
     Make sure you have permission for `host_dir`
