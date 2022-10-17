@@ -22,7 +22,7 @@ def tensorboard(
             [
                 "tensorboard",
                 "--logdir",
-                "/home/envd/logs",
+                envd_dir,
                 "--port",
                 str(envd_port),
                 "--host",
