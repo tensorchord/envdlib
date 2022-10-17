@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
   lint:
-    name: envd-lint
+    name: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -34,4 +34,4 @@ jobs:
       - name: Install dependencies
         run: pip install black[jupyter]
       - name: Lint
-        run: make envd-lint
+        run: make lint

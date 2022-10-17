@@ -1,7 +1,7 @@
 .PHONY: lint
 
 lint:
-	black --check --include '(\.envd|\.py|\.ipynb)$$' .
+	@black --check --include '(\.envd|\.py|\.ipynb)$$' .
 
 format:
-	black --include '(\.envd|\.py|\.ipynb)$$' .
+	@black --include '(\.envd|\.py|\.ipynb)$$' .
