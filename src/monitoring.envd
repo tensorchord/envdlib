@@ -27,8 +27,6 @@ def tensorboard(
                 str(envd_port),
                 "--host",
                 "0.0.0.0",
-                ">>tensorboard.log",
-                "2>&1",
             ],
         ]
     )
