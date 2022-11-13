@@ -2,7 +2,7 @@ def tensorboard(
     envd_port=6006,
     envd_dir="/home/envd/logs",
     host_port=0,
-    host_dir="/var/log/tensorboard",
+    host_dir="/tmp",
 ):
     """Configure TensorBoard.
 
