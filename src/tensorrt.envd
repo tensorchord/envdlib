@@ -1,0 +1,27 @@
+def tensorrt(os="20.04", cuda="11.6.2", trt="8.4.3.1"):
+    """Install tensorrt
+
+    Args:
+        os (Optional[str]): os version
+        cuda (Optional[str]): cuda version
+        trt (Optional[str]): tensorrt version
+    """
+    if trt.split(".")[0] != "8":
+        fail("we only support tensorrt8 for now.")
+    if cuda.count(".") == 2:
+        cuda = cuda[: cuda.rfind(".")]
+    if trt.count(".") == 3:
+        trt = trt[: trt.rfind(".")]
+    version = "{}-1+cuda{}".format(trt, cuda)
+    run(
+        [
+            "sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub &&\
+            sudo apt-get update &&\
+            sudo apt-get install -y --no-install-recommends --no-install-suggests --fix-missing \
+            libnvinfer8={v} libnvonnxparsers8={v} libnvparsers8={v} libnvinfer-plugin8={v} \
+            libnvinfer-dev={v} libnvonnxparsers-dev={v} libnvparsers-dev={v} libnvinfer-plugin-dev={v} \
+            python3-libnvinfer={v};".format(
+                v=version
+            )
+        ]
+    )
