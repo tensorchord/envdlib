@@ -1,0 +1,8 @@
+def install_golang(version="1.18.8"):
+    run(
+        [
+            "wget https://go.dev/dl/go{}.linux-amd64.tar.gz".format(version),
+            "tar -C /usr/local -xzf go{}.linux-amd64.tar.gz".format(version),
+        ]
+    )
+    runtime.environ(extra_path=["/usr/local/go/bin"])
