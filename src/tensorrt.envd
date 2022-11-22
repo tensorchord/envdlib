@@ -1,5 +1,5 @@
 def tensorrt(os="20.04", cuda="11.6.2", trt="8.4.3.1"):
-    """Install tensorrt
+    """Install tensorrt.
 
     Args:
         os (Optional[str]): os version
