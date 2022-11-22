@@ -1,4 +1,9 @@
-def install_golang(version="1.18.8"):
+def golang(version="1.18.8"):
+    """Install Golang.
+
+    Args:
+        version (Optional[str]): golang version
+    """
     run(
         [
             "wget https://go.dev/dl/go{}.linux-amd64.tar.gz".format(version),
