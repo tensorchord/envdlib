@@ -1,4 +1,4 @@
-def install_golang(version="1.18.8"):
+def golang(version="1.18.8"):
     """Install Golang.
 
     Args:
