@@ -7,7 +7,7 @@ def jupyter_notebook(envd_port=8888, host_port=8888, token="''"):
             envd will randomly choose a free port
         token (Optional[str]): access token
     """
-    install.python_packages(["jinja2=3.1.2", "notebook"])
+    install.python_packages(["jinja2==3.1.2", "notebook"])
     runtime.expose(envd_port=envd_port, host_port=host_port, service="jupyter-notebook")
     runtime.daemon(
         commands=[
