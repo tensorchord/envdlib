@@ -4,10 +4,10 @@ def jupyter_notebook(envd_port=8888, host_port=8888, token="''"):
     Args:
         envd_port (Optional[int]): port used by envd container (default=8888)
         host_port (Optional[int]): port used by host, if not specified or equals to 0,
-            envd will randomly choose a free port
+            envd will randomly choose a free port, default is 8888
         token (Optional[str]): access token
     """
-    install.python_packages(["jinja2==3.1.2", "notebook"])
+    install.python_packages(["jinja2", "notebook"])
     runtime.expose(envd_port=envd_port, host_port=host_port, service="jupyter-notebook")
     runtime.daemon(
         commands=[
@@ -20,6 +20,9 @@ def jupyter_notebook(envd_port=8888, host_port=8888, token="''"):
                 "--port",
                 str(envd_port),
                 "--allow-root",
+                "-y",
+                "--NotebookApp.token",
+                token,
             ]
         ]
     )
