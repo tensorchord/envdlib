@@ -1,19 +1,22 @@
-def jupyter_notebook(envd_port=7777, host_port=0, token="''"):
+def jupyter_notebook(envd_port=8888, host_port=0, token="''"):
     """Configure Jupyter Notebook.
 
     Args:
-        envd_port (Optional[int]): port used by envd container (default=9999)
+        envd_port (Optional[int]): port used by envd container (default=8888)
         host_port (Optional[int]): port used by host, if not specified or equals to 0,
             envd will randomly choose a free port
         token (Optional[str]): access token
     """
     install.python_packages(["notebook"])
-    runtime.expose(envd_port=envd_port, host_port=host_port, service="jupyter-lab")
+    runtime.expose(envd_port=envd_port, host_port=host_port, service="jupyter-notebook")
     runtime.daemon(
         commands=[
             [
                 "jupyter",
-                "notebook",         
+                "notebook",
+                "--no-browser",
+                "--port",
+                str(envd_port),
             ]
         ]
     )
