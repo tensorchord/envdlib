@@ -14,6 +14,8 @@ def jupyter_notebook(envd_port=8888, host_port=8888, token="''"):
             [
                 "jupyter",
                 "notebook",
+                "--ip",
+                "0.0.0.0",
                 "--no-browser",
                 "--port",
                 str(envd_port),
