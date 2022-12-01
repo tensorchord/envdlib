@@ -1,4 +1,4 @@
-def jupyter_lab(envd_port=7777, host_port=0, token="''"):
+def jupyter_notebook(envd_port=7777, host_port=0, token="''"):
     """Configure Jupyter Notebook.
 
     Args:
