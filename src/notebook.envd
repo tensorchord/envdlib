@@ -46,7 +46,6 @@ def jupyter_notebook(envd_port=8888, host_port=8888, token="''"):
                 "--no-browser",
                 "--port",
                 str(envd_port),
-                "--allow-root",
                 "-y",
                 "--NotebookApp.token",
                 token,
