@@ -25,6 +25,7 @@ def jupyter_lab(envd_port=8888, host_port=0, token="''"):
         ]
     )
 
+
 def jupyter_notebook(envd_port=8888, host_port=8888, token="''"):
     """Configure Jupyter Notebook.
 
