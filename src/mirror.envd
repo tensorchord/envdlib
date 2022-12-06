@@ -1,0 +1,158 @@
+# pypi source
+# see https://mirrors.cernet.edu.cn/list/pypi-packages
+PYPI_URL = {
+    # North China
+    "tuna": "https://pypi.tuna.tsinghua.edu.cn/simple",
+    "pku": "https://mirrors.pku.edu.cn/pypi/simple",
+    "bfsu": "https://mirrors.bfsu.edu.cn/pypi/web/simple",
+    "nyi": "https://mirror.nyist.edu.cn/pypi/web/simple",
+    # Northeast China
+    "dnui": "https://mirrors.neusoft.edu.cn/pypi/web/simple",
+    # Southwest China
+    "lzu": "https://mirror.lzu.edu.cn/pypi/web/simple",
+    "xjtu": "https://mirrors.xjtu.edu.cn/pypi/simple",
+    # East China
+    "sjtu": "https://mirror.sjtu.edu.cn/pypi/web/simple",
+    "nju": "https://mirror.nju.edu.cn/pypi/web/simple",
+    "njt": "https://mirrors.njtech.edu.cn/pypi/web/simple",
+    # South China
+    "sus": "https://mirrors.sustech.edu.cn/pypi/simple",
+}
+
+# anaconda source
+# see https://mirrors.cernet.edu.cn/list/conda
+CONDA_URL = {
+    # North China
+    "tuna": "https://mirrors.tuna.tsinghua.edu.cn/anaconda",
+    "bfsu": "https://mirrors.bfsu.edu.cn/anaconda",
+    # Southwest China
+    "lzu": "https://mirror.lzu.edu.cn/anaconda",
+    # East China
+    "zju": "https://mirrors.zju.edu.cn/anaconda",
+    "nju": "https://mirror.nju.edu.cn/anaconda",
+    "njt": "https://mirrors.njtech.edu.cn/anaconda",
+    "njup": "https://mirrors.njupt.edu.cn/anaconda",
+}
+
+# ubuntu apt source
+# see also https://mirrors.cernet.edu.cn/list/ubuntu
+APT_URL = {
+    # North China
+    "tuna": "https://mirrors.tuna.tsinghua.edu.cn/ubuntu/",
+    "pku": "https://mirrors.pku.edu.cn/ubuntu",
+    "bfsu": "https://mirrors.bfsu.edu.cn/ubuntu",
+    "isc": "https://mirror.iscas.ac.cn/ubuntu",
+    "nyi": "https://mirror.nyist.edu.cn/ubuntu",
+    # Southwest China
+    "lzu": "https://mirror.lzu.edu.cn/ubuntu",
+    "nwa": "https://mirrors.nwafu.edu.cn/ubuntu",
+    "xjtu": "https://mirrors.xjtu.edu.cn/ubuntu/",
+    # Northeast China
+    "dnui": "http://mirrors.neusoft.edu.cn/ubuntu",
+    # Southwest China
+    "cqu": "https://mirrors.cqu.edu.cn/ubuntu",
+    # East China
+    "ustc": "https://mirrors.ustc.edu.cn/ubuntu",
+    "sjtu": "https://mirror.sjtu.edu.cn/ubuntu",
+    "zju": "https://mirrors.zju.edu.cn/ubuntu",
+    "nju": "https://mirror.nju.edu.cn/ubuntu",
+    "njt": "https://mirrors.njtech.edu.cn/ubuntu",
+    "njup": "https://mirrors.njupt.edu.cn/ubuntu",
+    "qlu": "https://mirrors.qlu.edu.cn/ubuntu",
+    "sdu": "https://mirrors.sdu.edu.cn/ubuntu",
+    # South China
+    "sus": "https://mirrors.sustech.edu.cn/ubuntu",
+    "scau": "https://mirrors.scau.edu.cn/ubuntu",
+}
+
+UBUNTU_OS = {"ubuntu18.04": "bionic", "ubuntu20.04": "focal", "ubuntu22.04": "jammy"}
+
+CONDA_TEMPLATE = """
+channels:
+  - defaults
+show_channel_urls: true
+default_channels:
+  - {url}/pkgs/main
+  - {url}/pkgs/r
+  - {url}/pkgs/msys2
+  - {url}/pkgs/free
+custom_channels:
+  conda-forge: {url}/cloud
+  msys2: {url}/cloud
+  bioconda: {url}/cloud
+  menpo: {url}/cloud
+  pytorch: {url}/cloud
+  simpleitk: {url}/cloud
+"""
+
+APT_TEMPLATE = """deb {url} {os} main restricted universe multiverse
+deb {url} {os}-updates main restricted universe multiverse
+deb {url} {os}-backports main restricted universe multiverse
+deb {url} {os}-security main restricted universe multiverse
+"""
+
+APT_ALPHA_TEMPLATE = "deb {url} {os}-proposed main restricted universe multiverse"
+
+
+def mirror(pip="tuna", conda="tuna", apt="tuna"):
+    """Set Pypi/Anaconda/Apt mirror repository for installation.
+
+    Args:
+        pip (Optional[str]): alias for pypi source
+        conda (Optional[str]): alias for anaconda source
+        apt (Optional[str]): alias for apt source
+
+    See:
+        alias from `PYPI_URL` / `CONDA_URL` / `APT_URL` at
+        https://github.com/tensorchord/envdlib/blob/main/src/mirror.envd
+    """
+    mirror_pip(source=pip)
+    mirror_conda(source=conda)
+    mirror_apt(source=apt)
+
+
+def mirror_pip(source="tuna"):
+    """Set Pypi mirror repository for installation.
+
+    Args:
+        source (Optional[str]): alias for pypi source
+
+    See:
+        alias from `PYPI_URL` at
+        https://github.com/tensorchord/envdlib/blob/main/src/mirror.envd
+    """
+    config.pip_index(url=PYPI_URL[source])
+
+
+def mirror_conda(source="tuna"):
+    """Set Anaconda mirror repository for installation.
+
+    Args:
+        source (Optional[str]): alias for anaconda source
+
+    See:
+        alias from `CONDA_URL` at
+        https://github.com/tensorchord/envdlib/blob/main/src/mirror.envd
+    """
+    config.conda_channel(channel=CONDA_TEMPLATE.format(url=CONDA_URL[source]))
+
+
+def mirror_apt(source="tuna", include_alpha=False):
+    """Set Apt mirror repository for installation.
+
+    Args:
+        source (Optional[str]): alias for apt source
+
+    See:
+        alias from `APT_URL` at
+        https://github.com/tensorchord/envdlib/blob/main/src/mirror.envd
+    """
+    # TODO: support serveral os, waiting for
+    # https://github.com/tensorchord/envd/issues/1267
+    os = UBUNTU_OS["ubuntu20.04"]
+    base_source = APT_TEMPLATE.format(url=APT_URL[source], os=os)
+    if not include_alpha:
+        config.apt_source(source=base_source)
+    else:
+        alpha_source = APT_ALPHA_TEMPLATE.format(url=APT_URL[source], os=os)
+        config.apt_source(source=base_source + alpha_source)
