@@ -69,15 +69,11 @@ UBUNTU_OS = {"ubuntu18.04": "bionic", "ubuntu20.04": "focal", "ubuntu22.04": "ja
 
 CONDA_TEMPLATE = """
 channels:
-  - defaults
+  - conda-forge
 show_channel_urls: true
 default_channels:
-  - {url}/pkgs/main
-  - {url}/pkgs/r
-  - {url}/pkgs/msys2
-  - {url}/pkgs/free
+  - {url}/cloud
 custom_channels:
-  conda-forge: {url}/cloud
   msys2: {url}/cloud
   bioconda: {url}/cloud
   menpo: {url}/cloud
