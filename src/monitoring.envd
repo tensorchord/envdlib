@@ -1,8 +1,5 @@
 def tensorboard(
-    envd_port=6006,
-    envd_dir="/home/envd/logs",
-    host_port=0,
-    host_dir="/tmp",
+    envd_port=6006, envd_dir="/home/envd/logs", host_port=0, host_dir="/tmp"
 ):
     """Configure TensorBoard.
 
@@ -27,7 +24,7 @@ def tensorboard(
                 str(envd_port),
                 "--host",
                 "0.0.0.0",
-            ],
+            ]
         ]
     )
     runtime.expose(envd_port=envd_port, host_port=host_port, service="tensorboard")
