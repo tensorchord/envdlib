@@ -138,6 +138,7 @@ def mirror_apt(source="tuna", include_alpha=False):
 
     Args:
         source (Optional[str]): alias for apt source
+        include_alpha (Optional[bool]): whether include alpha source `xxx-proposed`
 
     See:
         alias from `APT_URL` at
